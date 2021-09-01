@@ -43,7 +43,7 @@ def get_ssrn_entry(url):
 
     articledict['journal'] = "{SSRN Electronic Journal}"
     articledict['publisher'] = "{Elsevier BV}"
-    articledict['ssrn_no'] = re.search('abstract_id=(.*)', url, re.IGNORECASE).group(1)
+    articledict['ssrn_no'] = re.search('abstract(_id)?=(\d+)', url, re.IGNORECASE).group(2)
     articledict['note'] = '"\\url{https://ssrn.com/abstract=' + articledict['ssrn_no'] + '}"'
 
     for tag in soup.find_all('meta'):
@@ -69,8 +69,8 @@ def get_ssrn_entry(url):
                 try_date = cite_date
 
 
-            articledict['date_str'] = try_date_str  
-            articledict['date'] = try_date  
+            articledict['date_str'] = try_date_str
+            articledict['date'] = try_date
 
             articledict['month'] = get_month(articledict['date'].month)
             articledict['year'] = str(articledict['date'].year)
@@ -178,12 +178,11 @@ if __name__ == "__main__":
 #%%
 '''
 test, soup, dic = get_ssrn_entry('https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3846655')
-
+test, soup, dic = get_ssrn_entry('https://papers.ssrn.com/abstract=3605606')
 test, soup, dic = get_ssrn_entry(3846655)
 test, soup, dic = get_ssrn_entry(2828073)
 test, soup, dic = get_ssrn_entry(3197365)
 test, soup, dic = get_ssrn_entry(2576277)
 test, soup, dic = get_ssrn_entry(252653)
 "
-
 '''
