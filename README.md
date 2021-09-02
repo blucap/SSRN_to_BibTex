@@ -1,6 +1,6 @@
 # SSRN_to_BibTex
 
-This command line-based python script returns a BibTex entry. 
+This command line-based python script returns a BibTex entry from the SSRN article id or the url. 
 
 Copy the `ssrn.py` file to a location that your system's path can find, e.g.  `\usr\local\ssrn` 
 
