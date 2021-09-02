@@ -1,14 +1,24 @@
 # SSRN_to_BibTex
 
+This command line-based python script returns a BibTex entry. 
+
+Copy the `ssrn.py` file to a location that your system's path can find, e.g.  `\usr\local\ssrn` 
+
 Usage:
 
-    ssrn 2828073
-    ssrn https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2828073
+```
+ssrn 2828073
+```
 
-Generates this output:
+or, using the full path from your browser:
+
+```
+ssrn https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2828073
+```
+
+Generates this output:  
 
     Risk Management, Governance, Culture, and Risk Taking in Banks
-    
     
     Author's name:
     René M. Stulz (17753)
@@ -25,7 +35,8 @@ Generates this output:
     year = 2016
     }
     
-    
     https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2828073
-    
-    
+
+You can then copy and paste the text into your bib library file.
+
+Now, don't panic if you get some error messages, as ssrn.com doesnt like scraping. Just try, using the number (`ssrn 2828073`)  or the url notation: `ssrn https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2828073`
