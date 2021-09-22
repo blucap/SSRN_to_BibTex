@@ -138,6 +138,7 @@ def get_ssrn_entry(url):
     print(f'title = {articledict["title"]},')
     if pp != "0":
         print(f'{articledict["pages"]},')
+    print(f'journal = {articledict["journal"]},')
     print(f'publisher = {articledict["publisher"]},')
     print(f'note = {articledict["note"]},')
     print(f'month = {articledict["month"]},')
