@@ -16,7 +16,7 @@ or, using the full path from your browser:
 ssrn https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2828073
 ```
 
-Generates this output:  
+which generates this output:  
 
     Risk Management, Governance, Culture, and Risk Taking in Banks
     
