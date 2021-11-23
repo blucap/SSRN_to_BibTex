@@ -5,10 +5,23 @@
 import sys
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen as uReq
+import urllib.error as uErr
 import re
 from collections import OrderedDict
 from dateutil.parser import parse
 import calendar
+import tenacity
+
+
+@tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=64), stop=tenacity.stop_after_attempt(5))
+def get_that_page(url):
+    try:
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        uClient = uReq(req)
+        print('Success')
+    except Exception:
+        print('Trying again.')
+    return uClient
 
 
 def get_month(m):
@@ -23,8 +36,10 @@ def get_ssrn_entry(url):
         url = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=' + url
         ssrn_id_int = True
 
-    req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    uClient = uReq(req)
+    # req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    # uClient = uReq(req)
+    uClient = get_that_page(url)
+
     soup = BeautifulSoup(uClient, 'lxml')
     authorsstring = ""
     authorscount = 0
@@ -69,8 +84,8 @@ def get_ssrn_entry(url):
                 try_date = cite_date
 
 
-            articledict['date_str'] = try_date_str
-            articledict['date'] = try_date
+            articledict['date_str'] = try_date_str  # tag.get("content", None)
+            articledict['date'] = try_date  # parse(articledict['date_str'])
 
             articledict['month'] = get_month(articledict['date'].month)
             articledict['year'] = str(articledict['date'].year)
@@ -185,5 +200,7 @@ test, soup, dic = get_ssrn_entry(2828073)
 test, soup, dic = get_ssrn_entry(3197365)
 test, soup, dic = get_ssrn_entry(2576277)
 test, soup, dic = get_ssrn_entry(252653)
+test, soup, dic = get_ssrn_entry('https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3961574')
 "
+
 '''
